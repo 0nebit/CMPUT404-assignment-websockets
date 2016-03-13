@@ -131,7 +131,6 @@ def subscribe_socket(ws):
             # block here
             msg = client.get()
             print "Got a message"
-            print "Sending %s" % json.dumps(json.loads(msg))
             ws.send(msg)
     except Exception as e:
         print "WS Error (subscribe): %s" % e
