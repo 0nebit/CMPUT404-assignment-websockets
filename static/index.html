@@ -257,7 +257,10 @@ function wsSetup() {
     var url = "ws://"+host+"/subscribe";   
     socket = new WebSocket(url);
     socket.onopen = function() {
-        //XXX: TODO What are you going to do here?
+    //XXX: TODO What are you going to do here?
+
+    // nothing
+						   
     };
     socket.onerror = function(msg) {
         debug("WebSocket Error:" + msg.data);
