@@ -57,3 +57,10 @@ Contributors
 
 * Mark Galloway
 * Abram Hindle
+* Chuan Chen
+
+## References
+- Chuan Chen
+  - https://github.com/abramhindle/WebSocketsExamples
+  - http://sdiehl.github.io/gevent-tutorial/
+  - https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications
