@@ -75,7 +75,15 @@ clients = list()
 
 def set_listener( entity, data ):
     ''' do something with the update ! '''
+
+    content = {}
+    content[entity] = data
     
+    # put to client message queue
+    for client in clients:
+        # put JSON object
+        client.put(json.dumps(content))
+        
 myWorld.add_set_listener( set_listener )
         
 @app.route('/')
@@ -99,10 +107,6 @@ def read_ws(ws,client):
                 # update world
                 for k in packet:
                     myWorld.set(k, packet[k])
-                # put to client message queue
-                for client in clients:
-                    # put JSON object
-                    client.put(json.dumps(packet))
             else:
                 break
     except:
@@ -121,12 +125,13 @@ def subscribe_socket(ws):
     client = Client()
     clients.append(client)
     g = gevent.spawn(read_ws, ws, client)
-        
+
     try:
         while True:
             # block here
             msg = client.get()
             print "Got a message"
+            print "Sending %s" % json.dumps(json.loads(msg))
             ws.send(msg)
     except Exception as e:
         print "WS Error (subscribe): %s" % e
@@ -160,7 +165,7 @@ def update(entity):
 @app.route("/world", methods=['POST','GET'])    
 def world():
     '''you should probably return the world here'''
-    return myWorld.world()
+    return json.dumps(myWorld.world())
 
 @app.route("/entity/<entity>")    
 def get_entity(entity):
